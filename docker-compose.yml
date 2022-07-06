@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+
+  # mymongo:
+  #   image: mongo:latest
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME:-root}
+  #     - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD:-rootpassword}
+  #   ports:
+  #     - "8005:8005"
+  #   volumes:
+  #     - mongodb-data:/data/db
+  #   networks:
+  #     - deploylvs_network
+  appservice:
+    image: appservice:latest
+    build:
+      context: .
+    # volumes:
+    #   - ./:/app/
+    # networks:
+    #   - deploylvs_network
+    ports:
+      - 8005:8005
+    
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_USERNAME: root
+      MYSQL_ROOT_PASSWORD: W@lcom@r36@
+      MYSQL_DATABASE: test_db
+    ports:
+      - 3307:3307
+
+  redis:
+    image: myredis
+    restart: always
+    ports:
+      - 6378:6378
+
+   
